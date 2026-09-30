@@ -1,0 +1,106 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CoachCompanion.App.ViewModels"
+        xmlns:models="using:CoachCompanion.App.Models"
+        xmlns:audio="using:CoachCompanion.Audio"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="600"
+        x:Class="CoachCompanion.App.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Coach Companion"
+        Width="960" Height="620" MinWidth="720" MinHeight="420">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="TextBlock.coach">
+            <Setter Property="Foreground" Value="#3B82F6" />
+        </Style>
+        <Style Selector="TextBlock.client">
+            <Setter Property="Foreground" Value="#10B981" />
+        </Style>
+        <Style Selector="TextBlock.speaker">
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="TextBlock.label">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="8,0,4,0" />
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="12">
+
+        <StackPanel DockPanel.Dock="Top" Spacing="8">
+            <WrapPanel Orientation="Horizontal" ItemHeight="34">
+                <TextBlock Classes="label" Text="Meeting app" Margin="0,0,4,0" />
+                <ComboBox ItemsSource="{Binding Targets}" SelectedItem="{Binding SelectedTarget}" Width="190">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:TargetApp">
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox Text="{Binding ProcessName}" Width="120" PlaceholderText="process name" Margin="4,0,0,0" />
+
+                <TextBlock Classes="label" Text="Microphone" />
+                <ComboBox ItemsSource="{Binding Microphones}" SelectedItem="{Binding SelectedMicrophone}" Width="280">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="audio:AudioDeviceInfo">
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Classes="label" Text="Model" />
+                <ComboBox ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" Width="150">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:ModelItem">
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal" ItemHeight="34">
+                <CheckBox IsChecked="{Binding EchoCancellation}" Content="Echo cancellation" Margin="0,0,12,0" />
+                <CheckBox IsChecked="{Binding NoiseSuppression}" Content="Noise suppression" Margin="0,0,12,0" />
+                <Button Content="Start" Command="{Binding StartCommand}" Classes="accent" Width="90" Margin="0,0,6,0" />
+                <Button Content="Stop" Command="{Binding StopCommand}" Width="90" Margin="0,0,6,0" />
+                <Button Content="Refresh devices" Command="{Binding RefreshCommand}" Margin="0,0,6,0" />
+                <Button Content="Clear" Command="{Binding ClearCommand}" Margin="0,0,6,0" />
+                <Button Content="Sessions folder" Command="{Binding OpenSessionsFolderCommand}" />
+            </WrapPanel>
+        </StackPanel>
+
+        <Border DockPanel.Dock="Bottom" Padding="0,8,0,0">
+            <StackPanel Spacing="2">
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Stats}" Opacity="0.6" FontSize="12" TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <Border BorderBrush="#40808080" BorderThickness="1" CornerRadius="6" Margin="0,8,0,0" Padding="8">
+            <ScrollViewer x:Name="TranscriptScroll">
+                <ItemsControl ItemsSource="{Binding Utterances}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:UtteranceItem">
+                            <Grid ColumnDefinitions="56,64,*" Margin="0,3">
+                                <TextBlock Grid.Column="0" Text="{Binding Time}" Opacity="0.55" />
+                                <TextBlock Grid.Column="1" Text="{Binding Speaker}" Classes="speaker"
+                                           Classes.coach="{Binding IsCoach}" Classes.client="{Binding IsClient}" />
+                                <TextBlock Grid.Column="2" Text="{Binding Text}" TextWrapping="Wrap"
+                                           Classes.coach="{Binding IsCoach}" Classes.client="{Binding IsClient}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+    </DockPanel>
+</Window>

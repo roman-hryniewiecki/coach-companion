@@ -1,0 +1,35 @@
+﻿<Window x:Class="CouchCompanion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CouchCompanion"
+        mc:Ignorable="d"
+        Title="Couch Companion" Height="300" Width="300"
+        WindowStyle="ToolWindow" ResizeMode="NoResize" Topmost="True"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="5">
+            <TextBlock Text="Selected Screen:" Margin="0,0,0,5"/>
+            <ComboBox x:Name="ScreenComboBox" ItemsSource="{Binding AvailableScreens}" SelectedItem="{Binding SelectedScreen}" DisplayMemberPath="DeviceName" SelectionChanged="ScreenComboBox_SelectionChanged"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="5">
+            <TextBlock Text="Selected Window:" Margin="0,0,0,5"/>
+            <ComboBox x:Name="WindowComboBox" ItemsSource="{Binding AvailableWindows}" SelectedItem="{Binding SelectedWindow}" DisplayMemberPath="Title"/>
+        </StackPanel>
+
+        <Button Grid.Row="2" Content="{Binding AttachButtonText}" Margin="5" Command="{Binding ToggleCaptureCommand}"/>
+
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" Margin="5">
+            <TextBlock x:Name="TranscriptionTextBlock" Text="{Binding TranscriptionText}" TextWrapping="Wrap"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

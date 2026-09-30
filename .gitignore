@@ -1,0 +1,8 @@
+bin/
+obj/
+*.user
+.vs/
+spike-out/
+models/*.bin
+CouchCompanion/Models/*.bin
+app_log.txt
