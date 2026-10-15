@@ -15,6 +15,7 @@ Windows first, Fedora later. Design, decisions and measured results: `docs/ARCHI
 |---|---|
 | `src/` | the product: `Audio`, `Audio.Windows`, `Audio.WebRtc`, `Speech`, `Core`, `App` (Avalonia) |
 | `tools/CoachCompanion.Spike` | console harness: `devices`, `capture`, `selftest`, `bench`, `aectest`, `live`, `session` |
+| `framework/` | coaching source material as Markdown: `coaching-arc/` (first framework, five stages), `tools/powerful-questions.md` (always on, any stage); the Phase 3 YAML will be derived from it |
 | `CouchCompanion/` | the old WPF prototype; broken at runtime, kept for reference only, do not extend |
 | `models/` | Whisper ggml models (`ggml-small.en.bin` default, `ggml-large-v3-turbo.bin`); **not in git** |
 | `spike-out/` | recordings and transcripts from local runs; **not in git** (may hold confidential session audio) |

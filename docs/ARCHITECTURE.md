@@ -167,7 +167,9 @@ captions" feel needs the cloud engine.
   savings; a cheaper model is a later, deliberate choice.
 - Frameworks are data, not code: `frameworks/coaching-arc.yaml`, `frameworks/flip-it.yaml`
   with stages, definitions, transition markers and example questions; more can be added
-  without a rebuild.
+  without a rebuild. The transcribed source material lives in `framework/` (2026-10-15):
+  `framework/coaching-arc/README.md` is the first framework to implement, and
+  `framework/tools/powerful-questions.md` is an always-on question bank used across stages.
 - Sessions: transcript + state JSONL per session, local only, delete from the UI; consent to
   transcription is asked of the client at session start.
 
